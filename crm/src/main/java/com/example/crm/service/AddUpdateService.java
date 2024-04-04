@@ -34,5 +34,20 @@ public class AddUpdateService {
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Added contact successfully: ");
     }
-
+	    public ResponseEntity<?> updateContact(Contact contact) {
+	        if (!contactRepository.existsById(contact.getId())) {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Contact not found.");
+	        }
+	 
+	        Contact updatedContact = contactRepository.save(contact);
+	        return ResponseEntity.status(HttpStatus.OK).body("Updated contact successfully: ");
+	    }
+	 
+	    private boolean isValidPhoneNumber(String phoneNumber) {
+	        return phoneNumber != null && phoneNumber.matches("\\d{10}");
+	    }
+	 
+	    private boolean isValidEmail(String email) {
+	        return email != null && email.matches("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}");
+	    }
 }
