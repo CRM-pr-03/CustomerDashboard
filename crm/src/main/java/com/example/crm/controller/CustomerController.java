@@ -24,4 +24,11 @@ public class CustomerController {
             return addNewContact(contact);
         }
     }
+    private ResponseEntity<?> addNewContact(Contact contact) {
+        ResponseEntity<?> responseEntity = addUpdateService.addContact(contact);
+        if (responseEntity.getStatusCode() == HttpStatus.CREATED) {
+           
+        }
+        return responseEntity;
+    }
 }
