@@ -29,7 +29,13 @@ public class AddContactController {
         }
     }
 
-   
+    private ResponseEntity<?> updateContact(AddContact addContact) {
+        ResponseEntity<?> responseEntity = addContactService.updateContact(addContact);
+        if (responseEntity.getStatusCode() == HttpStatus.NOT_FOUND) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Contact not found.");
+        }
+        return responseEntity;
+    }
     
     private ResponseEntity<?> addNewContact(AddContact addContact) {
         ResponseEntity<?> responseEntity = addContactService.addContact(addContact);
