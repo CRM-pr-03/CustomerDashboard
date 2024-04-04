@@ -24,6 +24,13 @@ public class CustomerController {
             return addNewContact(contact);
         }
     }
+    private ResponseEntity<?> updateContact(Contact contact) {
+        ResponseEntity<?> responseEntity = addUpdateService.updateContact(contact);
+        if (responseEntity.getStatusCode() == HttpStatus.NOT_FOUND) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Contact not found.");
+        }
+        return responseEntity;
+    }
     private ResponseEntity<?> addNewContact(Contact contact) {
         ResponseEntity<?> responseEntity = addUpdateService.addContact(contact);
         if (responseEntity.getStatusCode() == HttpStatus.CREATED) {
